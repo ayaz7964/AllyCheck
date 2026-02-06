@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AccessiScan - Scan Initialization</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display min-h-screen flex flex-col">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Header / TopNavBar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[#e7ebf3] dark:border-gray-800 bg-background-light dark:bg-background-dark px-10 py-3">
+<div class="flex items-center gap-4 text-[#0d121b] dark:text-white">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">AccessiScan</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-9">
+<a class="text-[#0d121b] dark:text-gray-300 text-sm font-medium leading-normal" href="#">Dashboard</a>
+<a class="text-[#0d121b] dark:text-gray-300 text-sm font-medium leading-normal" href="#">Reports</a>
+<a class="text-[#0d121b] dark:text-gray-300 text-sm font-medium leading-normal" href="#">Documentation</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">Sign Out</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-gray-200 dark:border-gray-700" data-alt="User avatar placeholder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCJp1QyCKyTO6QczBC_AY1Zq4Hz90oOYNnrJFSkVTLLQLjBQwVMZXNIVD8SfbLKj60nIBRsmZ93iBvBesf7-CW2OPrEqObQjuocITTKdifWKcO4pRw5-WsDSjNuGt3dTliJGmJFDiH1QuWmrMaV1I5QXnSbzGTGMXY8bdohIDqB3xAC1QlXOyOOJa8tfBDCRlClOAwcJTOfmA8dYoHOwcWrm2U6O8ujjb1YQHmfhkNw2ikiHnH7ruuE32aR1e5ZK6FCErkky_w3-8I");'></div>
+</div>
+</div>
+</header>
+<!-- Main Content Center -->
+<main class="flex-1 flex items-center justify-center p-6">
+<div class="max-w-[640px] w-full bg-white dark:bg-background-dark border border-[#e7ebf3] dark:border-gray-800 rounded-xl shadow-sm p-8 md:p-12">
+<!-- HeadlineText -->
+<div class="flex flex-col items-center mb-2">
+<h1 class="text-[#0d121b] dark:text-white tracking-tight text-[32px] font-bold leading-tight text-center">
+                        Analyze Your Website’s Accessibility
+                    </h1>
+</div>
+<!-- BodyText -->
+<div class="flex flex-col items-center mb-10">
+<p class="text-[#4c669a] dark:text-gray-400 text-base font-normal leading-normal text-center max-w-[400px]">
+                        Enter a URL to run an AI-powered scan against WCAG 2.1 standards.
+                    </p>
+</div>
+<!-- Input Section -->
+<div class="space-y-6">
+<!-- TextField -->
+<div class="flex flex-col w-full">
+<label class="flex flex-col w-full">
+<p class="text-[#0d121b] dark:text-gray-200 text-sm font-semibold leading-normal pb-2">Website URL</p>
+<div class="flex w-full items-stretch rounded-lg shadow-sm">
+<div class="flex border border-[#cfd7e7] dark:border-gray-700 bg-white dark:bg-gray-800 items-center justify-center pl-[15px] rounded-l-lg border-r-0">
+<span class="material-symbols-outlined text-[#4c669a] text-[20px]">link</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg rounded-l-none text-[#0d121b] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-[#cfd7e7] dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-primary h-14 placeholder:text-[#4c669a] p-[15px] text-base font-normal leading-normal" placeholder="https://example.com" value=""/>
+</div>
+</label>
+</div>
+<!-- SingleButton -->
+<div class="flex w-full">
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-14 px-6 bg-primary hover:bg-primary/90 transition-colors text-white gap-2 text-lg font-bold leading-normal tracking-[0.015em] shadow-md shadow-primary/20">
+<span class="truncate">Start Accessibility Scan</span>
+<span class="material-symbols-outlined text-white">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Loading State (Hidden/Placeholder) -->
+<div class="mt-12 border-t border-gray-100 dark:border-gray-800 pt-8">
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between text-sm">
+<span class="text-[#4c669a] dark:text-gray-400 font-medium">Analyzing website accessibility...</span>
+<span class="text-primary font-bold">45%</span>
+</div>
+<div class="w-full bg-[#e7ebf3] dark:bg-gray-800 rounded-full h-2 overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all duration-500" style="width: 45%;"></div>
+</div>
+<div class="flex items-center gap-2 text-xs text-[#4c669a] dark:text-gray-500">
+<span class="material-symbols-outlined text-[14px] animate-spin">sync</span>
+<span>Checking color contrast and aria-labels...</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Footer -->
+<footer class="px-10 py-6 border-t border-[#e7ebf3] dark:border-gray-800 flex justify-between items-center bg-white dark:bg-background-dark">
+<p class="text-xs text-[#4c669a] dark:text-gray-500">© 2023 AccessiScan AI. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="text-xs text-[#4c669a] dark:text-gray-500 hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-xs text-[#4c669a] dark:text-gray-500 hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-xs text-[#4c669a] dark:text-gray-500 hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</footer>
+</div>
+</body></html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AccessiScan - Accessibility Results Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .sidebar-active {
+            background-color: #e7ebf3;
+        }
+        .dark .sidebar-active {
+            background-color: #1e293b;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#0d121b] dark:text-white antialiased">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 flex-shrink-0 border-r border-[#cfd7e7] dark:border-slate-800 bg-white dark:bg-background-dark h-full flex flex-col justify-between p-4">
+<div class="flex flex-col gap-8">
+<div class="flex items-center gap-3 px-2">
+<div class="bg-primary rounded-lg p-1.5 flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-2xl">blind</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-[#0d121b] dark:text-white text-base font-bold leading-tight">AccessiScan</h1>
+<p class="text-[#4c669a] text-xs font-normal">AI-powered Analyzer</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg sidebar-active text-[#0d121b] dark:text-white" href="#">
+<span class="material-symbols-outlined text-[24px]">dashboard</span>
+<span class="text-sm font-semibold">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#4c669a] hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">report_problem</span>
+<span class="text-sm font-medium">Issues</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#4c669a] hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">category</span>
+<span class="text-sm font-medium">Categories</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#4c669a] hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">insights</span>
+<span class="text-sm font-medium">Impact</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#4c669a] hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">visibility</span>
+<span class="text-sm font-medium">Simulation</span>
+</a>
+</nav>
+</div>
+<div class="flex flex-col gap-1 border-t border-[#cfd7e7] dark:border-slate-800 pt-4">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#4c669a] hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#4c669a] hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">help</span>
+<span class="text-sm font-medium">Support</span>
+</a>
+<div class="mt-4 flex items-center gap-3 px-3 py-2 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
+<div class="size-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs">JD</div>
+<div class="flex flex-col overflow-hidden">
+<p class="text-[#0d121b] dark:text-white text-xs font-bold truncate">John Doe</p>
+<p class="text-[#4c669a] text-[10px] truncate">Admin Auditor</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col overflow-y-auto bg-background-light dark:bg-background-dark">
+<!-- Header -->
+<header class="flex flex-wrap justify-between items-center gap-3 p-6 sticky top-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md z-10">
+<div class="flex flex-col gap-1">
+<h1 class="text-[#0d121b] dark:text-white text-3xl font-black leading-tight tracking-[-0.033em]">Dashboard Overview</h1>
+<p class="text-[#4c669a] dark:text-slate-400 text-sm font-normal">Last scan completed 10 minutes ago for <span class="text-primary font-medium">https://acme-store.com</span></p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center justify-center rounded-lg h-10 px-4 bg-white dark:bg-slate-800 border border-[#cfd7e7] dark:border-slate-700 text-[#0d121b] dark:text-white text-sm font-bold shadow-sm">
+<span class="material-symbols-outlined mr-2 text-xl">share</span> Export
+                </button>
+<button class="flex items-center justify-center rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold shadow-md hover:bg-primary/90 transition-all">
+<span class="material-symbols-outlined mr-2 text-xl">refresh</span> Re-scan URL
+                </button>
+</div>
+</header>
+<!-- Stats Overview Row -->
+<div class="px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+<div class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-slate-900 border border-[#cfd7e7] dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-start">
+<p class="text-[#4c669a] dark:text-slate-400 text-sm font-medium">Accessibility Score</p>
+<span class="text-[#e73908] bg-red-50 dark:bg-red-900/20 px-2 py-0.5 rounded text-xs font-bold">-2%</span>
+</div>
+<div class="flex items-end gap-2">
+<p class="text-[#0d121b] dark:text-white tracking-tight text-4xl font-black leading-tight">78</p>
+<p class="text-[#4c669a] dark:text-slate-400 text-sm font-medium pb-1.5">/ 100</p>
+</div>
+<div class="w-full bg-[#cfd7e7] dark:bg-slate-700 h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 78%;"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-slate-900 border border-[#cfd7e7] dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-start">
+<p class="text-[#4c669a] dark:text-slate-400 text-sm font-medium">Total Issues Found</p>
+<span class="text-[#07883b] bg-green-50 dark:bg-green-900/20 px-2 py-0.5 rounded text-xs font-bold">+5%</span>
+</div>
+<p class="text-[#0d121b] dark:text-white tracking-tight text-4xl font-black leading-tight">124</p>
+<div class="flex gap-2 mt-2">
+<span class="px-2 py-0.5 bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 rounded text-[10px] font-bold">12 CRITICAL</span>
+<span class="px-2 py-0.5 bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400 rounded text-[10px] font-bold">45 MODERATE</span>
+</div>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-slate-900 border border-[#cfd7e7] dark:border-slate-800 shadow-sm">
+<p class="text-[#4c669a] dark:text-slate-400 text-sm font-medium">Pages Scanned</p>
+<p class="text-[#0d121b] dark:text-white tracking-tight text-4xl font-black leading-tight">18</p>
+<p class="text-[#4c669a] dark:text-slate-400 text-xs mt-2 italic">Depth: 3 levels deep</p>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-slate-900 border border-[#cfd7e7] dark:border-slate-800 shadow-sm">
+<p class="text-[#4c669a] dark:text-slate-400 text-sm font-medium">Compliance Goal</p>
+<p class="text-[#0d121b] dark:text-white tracking-tight text-4xl font-black leading-tight">90+</p>
+<p class="text-primary text-xs font-bold mt-2">WCAG 2.1 AA Target</p>
+</div>
+</div>
+<!-- Categories Breakdown -->
+<div class="px-6 mb-8">
+<h2 class="text-[#0d121b] dark:text-white text-xl font-bold leading-tight tracking-[-0.015em] mb-4">Category Breakdown</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Visual -->
+<div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-[#cfd7e7] dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-3 mb-4">
+<div class="size-10 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">visibility</span>
+</div>
+<div>
+<p class="text-sm font-bold">Visual</p>
+<p class="text-xs text-[#4c669a]">Contrast &amp; Size</p>
+</div>
+</div>
+<div class="flex justify-between items-center mb-1">
+<span class="text-xs font-bold">Health: 64%</span>
+<span class="text-xs text-red-500 font-bold">28 Issues</span>
+</div>
+<div class="w-full bg-[#cfd7e7] dark:bg-slate-700 h-1.5 rounded-full">
+<div class="bg-red-500 h-full rounded-full" style="width: 64%;"></div>
+</div>
+</div>
+<!-- Navigation -->
+<div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-[#cfd7e7] dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-3 mb-4">
+<div class="size-10 rounded-lg bg-green-50 dark:bg-green-900/20 flex items-center justify-center text-green-600">
+<span class="material-symbols-outlined">keyboard</span>
+</div>
+<div>
+<p class="text-sm font-bold">Navigation</p>
+<p class="text-xs text-[#4c669a]">Keyboard &amp; Focus</p>
+</div>
+</div>
+<div class="flex justify-between items-center mb-1">
+<span class="text-xs font-bold">Health: 92%</span>
+<span class="text-xs text-green-500 font-bold">4 Issues</span>
+</div>
+<div class="w-full bg-[#cfd7e7] dark:bg-slate-700 h-1.5 rounded-full">
+<div class="bg-green-500 h-full rounded-full" style="width: 92%;"></div>
+</div>
+</div>
+<!-- Screen Reader -->
+<div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-[#cfd7e7] dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-3 mb-4">
+<div class="size-10 rounded-lg bg-purple-50 dark:bg-purple-900/20 flex items-center justify-center text-purple-600">
+<span class="material-symbols-outlined">record_voice_over</span>
+</div>
+<div>
+<p class="text-sm font-bold">Screen Reader</p>
+<p class="text-xs text-[#4c669a]">ARIA &amp; Semantics</p>
+</div>
+</div>
+<div class="flex justify-between items-center mb-1">
+<span class="text-xs font-bold">Health: 78%</span>
+<span class="text-xs text-orange-500 font-bold">12 Issues</span>
+</div>
+<div class="w-full bg-[#cfd7e7] dark:bg-slate-700 h-1.5 rounded-full">
+<div class="bg-orange-500 h-full rounded-full" style="width: 78%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Issues Table -->
+<div class="px-6 pb-12">
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-[#cfd7e7] dark:border-slate-800 shadow-sm overflow-hidden">
+<div class="p-4 border-b border-[#cfd7e7] dark:border-slate-800 flex justify-between items-center">
+<h2 class="text-base font-bold">Recent Issues Found</h2>
+<div class="flex gap-2">
+<select class="text-xs bg-slate-50 dark:bg-slate-800 border-none rounded-lg focus:ring-primary">
+<option>All Severities</option>
+<option>Critical</option>
+<option>Moderate</option>
+<option>Minor</option>
+</select>
+<button class="text-xs font-bold text-primary px-3 py-1.5 hover:bg-primary/10 rounded-lg">View All Issues</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-800/50">
+<th class="px-6 py-4 text-[11px] font-bold text-[#4c669a] uppercase tracking-wider">Severity</th>
+<th class="px-6 py-4 text-[11px] font-bold text-[#4c669a] uppercase tracking-wider">Issue Name</th>
+<th class="px-6 py-4 text-[11px] font-bold text-[#4c669a] uppercase tracking-wider">WCAG Reference</th>
+<th class="px-6 py-4 text-[11px] font-bold text-[#4c669a] uppercase tracking-wider">Affected Pages</th>
+<th class="px-6 py-4 text-right"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#cfd7e7] dark:divide-slate-800">
+<!-- Issue 1 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 py-1 bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 rounded-lg text-xs font-bold uppercase">Critical</span>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm font-semibold text-[#0d121b] dark:text-white leading-tight">Insufficient Color Contrast</p>
+<p class="text-xs text-[#4c669a] mt-0.5">Primary button text (#FFFFFF) on light background (#F1F1F1)</p>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">1.4.3 Contrast (Min)</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm font-medium">12 Pages</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:text-blue-700">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</td>
+</tr>
+<!-- Issue 2 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 py-1 bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400 rounded-lg text-xs font-bold uppercase">Moderate</span>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm font-semibold text-[#0d121b] dark:text-white leading-tight">Missing Image Alt Text</p>
+<p class="text-xs text-[#4c669a] mt-0.5">Hero image 'banner_01.jpg' lacks descriptive alternative text</p>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">1.1.1 Non-text Content</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm font-medium">4 Pages</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:text-blue-700">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</td>
+</tr>
+<!-- Issue 3 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 py-1 bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 rounded-lg text-xs font-bold uppercase">Minor</span>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm font-semibold text-[#0d121b] dark:text-white leading-tight">Incorrect Heading Order</p>
+<p class="text-xs text-[#4c669a] mt-0.5">H3 element follows H1 without an intermediate H2</p>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">1.3.1 Info &amp; Relations</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm font-medium">2 Pages</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:text-blue-700">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</td>
+</tr>
+<!-- Issue 4 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 py-1 bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 rounded-lg text-xs font-bold uppercase">Critical</span>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm font-semibold text-[#0d121b] dark:text-white leading-tight">Keyboard Trap</p>
+<p class="text-xs text-[#4c669a] mt-0.5">Custom dropdown modal traps focus within container</p>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">2.1.2 No Keyboard Trap</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm font-medium">1 Page</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:text-blue-700">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Accessibility Simulation View - AccessiScan AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#0d121b] dark:text-white transition-colors duration-200">
+<!-- Main Container -->
+<div class="flex flex-col h-screen overflow-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between px-6 py-3 bg-white dark:bg-background-dark border-b border-[#e7ebf3] dark:border-gray-800 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="text-primary">
+<svg class="size-6" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M24 4C25.7818 14.2173 33.7827 22.2182 44 24C33.7827 25.7818 25.7818 33.7827 24 44C22.2182 33.7827 14.2173 25.7818 4 24C14.2173 22.2182 22.2182 14.2173 24 4Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-tight">AccessiScan AI</h2>
+</div>
+<div class="h-6 w-px bg-[#e7ebf3] dark:bg-gray-800"></div>
+<div class="flex items-center gap-6">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-sm font-medium border-b-2 border-primary py-4 -mb-4" href="#">Projects</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Scans</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative flex items-center bg-[#e7ebf3] dark:bg-gray-800 rounded-lg px-3 py-1.5 w-64">
+<span class="material-symbols-outlined text-gray-500 text-xl">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-gray-500" placeholder="Search components..." type="text"/>
+</div>
+<button class="bg-primary hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-all">
+<span class="material-symbols-outlined text-lg">ios_share</span>
+                    Export Report
+                </button>
+<div class="h-8 w-8 rounded-full bg-cover bg-center border border-gray-200 dark:border-gray-700" data-alt="User avatar placeholder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBJsIyCk7SWSRyYDKMOVqXkwPNKWmOuBWUEa23NYe1vYeiR9FMb5PVPDDeARncJoALxmvwhKOgez_CrxMfJS8AVHsNER7dPIDl4aV4AHxKpH1E0eoL9Bf0wEfPOpmAvq5zZtbLzsT26sL3sJFSKtdHkRTlsOWATYyo7CJHGR1ntiLxWCpUJki1FujOfPD5d9hleSKzUALmX7JqGmXKsUQFl-lzOfF6Swq3rLHk69YDGdt8ineGeruiOxuyokpYur1WSO6vx84I10DE")'></div>
+</div>
+</header>
+<!-- Simulation Toolbar -->
+<div class="bg-white dark:bg-background-dark border-b border-[#e7ebf3] dark:border-gray-800 px-6 py-1">
+<div class="flex items-center justify-between">
+<div class="flex gap-1">
+<a class="flex flex-col items-center justify-center border-b-[3px] border-transparent text-gray-500 dark:text-gray-400 px-4 pt-3 pb-2 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all" href="#">
+<p class="text-xs font-bold uppercase tracking-wider">Original</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-primary text-primary px-4 pt-3 pb-2 bg-primary/5" href="#">
+<p class="text-xs font-bold uppercase tracking-wider">Low-vision mode</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-transparent text-gray-500 dark:text-gray-400 px-4 pt-3 pb-2 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all" href="#">
+<p class="text-xs font-bold uppercase tracking-wider">Color-blind</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-transparent text-gray-500 dark:text-gray-400 px-4 pt-3 pb-2 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all" href="#">
+<p class="text-xs font-bold uppercase tracking-wider">Screen-reader</p>
+</a>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 bg-[#e7ebf3] dark:bg-gray-800 p-1 rounded-lg">
+<button class="p-1.5 hover:bg-white dark:hover:bg-gray-700 rounded shadow-sm text-gray-700 dark:text-gray-300">
+<span class="material-symbols-outlined text-xl">zoom_in</span>
+</button>
+<button class="p-1.5 hover:bg-white dark:hover:bg-gray-700 rounded shadow-sm text-gray-700 dark:text-gray-300">
+<span class="material-symbols-outlined text-xl">zoom_out</span>
+</button>
+<div class="w-px h-4 bg-gray-300 dark:bg-gray-600 mx-1"></div>
+<button class="p-1.5 hover:bg-white dark:hover:bg-gray-700 rounded shadow-sm text-gray-700 dark:text-gray-300">
+<span class="material-symbols-outlined text-xl">devices</span>
+</button>
+</div>
+<button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">play_arrow</span>
+                        Run Analysis
+                    </button>
+</div>
+</div>
+</div>
+<!-- Main Content Area -->
+<main class="flex flex-1 overflow-hidden">
+<!-- Left Comparison View -->
+<div class="flex-1 flex flex-col overflow-hidden bg-background-light dark:bg-background-dark p-6">
+<div class="grid grid-cols-2 gap-6 h-full">
+<!-- Original View -->
+<div class="flex flex-col gap-3 h-full">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-semibold text-sm">Original Viewport</h3>
+<p class="text-xs text-gray-500">Baseline rendering: example-store.com</p>
+</div>
+<span class="px-2 py-0.5 rounded bg-green-100 text-green-700 text-[10px] font-bold uppercase">Live</span>
+</div>
+<div class="flex-1 rounded-xl border border-[#e7ebf3] dark:border-gray-800 bg-white dark:bg-gray-900 overflow-hidden shadow-sm relative">
+<div class="w-full h-full bg-center bg-no-repeat bg-cover" data-alt="Modern web interface with clean layout" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDMl7yu6V2oxjfm3S96dY8RlUuyBf2QJZApbjQ1UJmu70a59ZWjFXLb6H_aT0kLVXNQpgjDFZdTyScMb3z4PN3iDZA11VH7qwM1thq3dPRQ2xdbgg50HBsM87DfZemaYhgHuZ7UyjxvmMOdXrfTzxyoDT1EqHk3aX550TQb-Fb42Ev3ae_d7fkaGzMuaew9Ca5zZVr0a0XeRhUt40HcDgDBzSXeM41nENAomcJ8xMS2EqfdAyzcR_ICh40XD1kZiol9UDwISL1i0BM")'>
+</div>
+</div>
+</div>
+<!-- Simulated View -->
+<div class="flex flex-col gap-3 h-full">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-semibold text-sm">Simulated Viewport</h3>
+<p class="text-xs text-gray-500">Simulation: 2.5px Blur (Cataracts)</p>
+</div>
+<div class="flex gap-2">
+<span class="px-2 py-0.5 rounded bg-blue-100 text-primary text-[10px] font-bold uppercase">Simulated</span>
+<button class="text-primary hover:underline text-[10px] font-bold uppercase">Configure</button>
+</div>
+</div>
+<div class="flex-1 rounded-xl border border-primary/30 bg-white dark:bg-gray-900 overflow-hidden shadow-lg relative group">
+<!-- Simulation Overlay: Blur Effect -->
+<div class="absolute inset-0 z-10 backdrop-blur-[2px] pointer-events-none bg-white/10"></div>
+<div class="w-full h-full bg-center bg-no-repeat bg-cover" data-alt="Blurred version of the web interface preview" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuARr1BhON7I8oSTKZa3VCnz1ffEj3up1OfmrNyxiEVLFCy8khkUQZ35iuo3G6xOy9bt0TnpQ_GDKNMPVvVcXF2nM4m0n83jff2PXC5w-dGtaAGIxXL08lme1ekxT2jyULuuqnuxarKn532LItRq0NJ_txk5czatHBobZpk8W5WHJ8Y3AIc3gH14DIEr6h0q37LFCtuvAf8kgosH8bbsiaqdw6Nnw6M0-6fRb4hUm1m-1SMtrvrG8hzsmyT-SIMdWNW9Sk_Gzns83tw")'>
+</div>
+<!-- Floating Contrast Badge Example -->
+<div class="absolute top-1/3 left-1/4 z-20 px-2 py-1 bg-red-500 text-white rounded text-[10px] font-bold flex items-center gap-1 shadow-lg">
+<span class="material-symbols-outlined text-xs">warning</span>
+                                Ratio 2.1:1 (Fail)
+                            </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Side Navigation / Diagnostics Panel -->
+<aside class="w-80 border-l border-[#e7ebf3] dark:border-gray-800 bg-white dark:bg-background-dark flex flex-col">
+<div class="p-6 border-b border-[#e7ebf3] dark:border-gray-800">
+<h1 class="text-base font-bold mb-1">Diagnostics</h1>
+<p class="text-xs text-gray-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">link</span>
+                        example-store.com/checkout
+                    </p>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-4 flex flex-col gap-4">
+<!-- Nav Items -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-3 px-3 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg cursor-pointer transition-colors">
+<span class="material-symbols-outlined">dashboard</span>
+<p class="text-sm font-medium">Overview</p>
+</div>
+<div class="flex items-center justify-between px-3 py-2 rounded-lg bg-primary/10 text-primary cursor-pointer border border-primary/20">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">report_problem</span>
+<p class="text-sm font-bold">WCAG Violations</p>
+</div>
+<span class="bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">12</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg cursor-pointer transition-colors">
+<span class="material-symbols-outlined">palette</span>
+<p class="text-sm font-medium">Contrast Ratios</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg cursor-pointer transition-colors">
+<span class="material-symbols-outlined">account_tree</span>
+<p class="text-sm font-medium">DOM Accessibility Tree</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg cursor-pointer transition-colors">
+<span class="material-symbols-outlined">description</span>
+<p class="text-sm font-medium">Alt Text Log</p>
+</div>
+</div>
+<hr class="border-[#e7ebf3] dark:border-gray-800"/>
+<!-- Violation List -->
+<div class="flex flex-col gap-3">
+<h4 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-3">Active Issues</h4>
+<div class="p-3 bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 rounded-lg flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<span class="bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">Level AA</span>
+<span class="text-[10px] text-red-600 dark:text-red-400 font-medium">Violation</span>
+</div>
+<p class="text-xs font-bold text-red-800 dark:text-red-300">Insufficient Color Contrast</p>
+<p class="text-[11px] text-red-700/70 dark:text-red-400/70 leading-relaxed">The 'Buy Now' button text contrast is 2.14:1. Minimum required is 4.5:1.</p>
+<button class="text-[10px] font-bold text-red-700 underline flex items-center gap-1 mt-1">
+                                Inspect Element
+                                <span class="material-symbols-outlined text-[10px]">open_in_new</span>
+</button>
+</div>
+<div class="p-3 bg-orange-50 dark:bg-orange-900/10 border border-orange-100 dark:border-orange-900/30 rounded-lg flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<span class="bg-orange-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">Level A</span>
+<span class="text-[10px] text-orange-600 dark:text-orange-400 font-medium">Warning</span>
+</div>
+<p class="text-xs font-bold text-orange-800 dark:text-orange-300">Missing Alt Attribute</p>
+<p class="text-[11px] text-orange-700/70 dark:text-orange-400/70 leading-relaxed">Image 'hero-banner.jpg' is missing a descriptive alt attribute.</p>
+<button class="text-[10px] font-bold text-orange-700 underline flex items-center gap-1 mt-1">
+                                Fix with AI
+                                <span class="material-symbols-outlined text-[10px]">auto_awesome</span>
+</button>
+</div>
+<div class="p-3 bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30 rounded-lg flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<span class="bg-blue-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">Level AAA</span>
+<span class="text-[10px] text-blue-600 dark:text-blue-400 font-medium">Notice</span>
+</div>
+<p class="text-xs font-bold text-blue-800 dark:text-blue-300">Text Resizing (200%)</p>
+<p class="text-[11px] text-blue-700/70 dark:text-blue-400/70 leading-relaxed">Ensure content remains functional when scaled up to 200%.</p>
+</div>
+</div>
+</div>
+<!-- Footer Stats -->
+<div class="p-4 bg-gray-50 dark:bg-gray-900/50 border-t border-[#e7ebf3] dark:border-gray-800">
+<div class="flex justify-between items-center mb-2">
+<span class="text-[10px] font-bold text-gray-500">ACCESSIBILITY SCORE</span>
+<span class="text-sm font-bold text-primary">68/100</span>
+</div>
+<div class="w-full bg-gray-200 dark:bg-gray-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[68%]"></div>
+</div>
+</div>
+</aside>
+</main>
+<!-- Status Bar -->
+<footer class="bg-white dark:bg-background-dark border-t border-[#e7ebf3] dark:border-gray-800 px-6 py-2 flex items-center justify-between text-[11px] text-gray-500 uppercase tracking-widest font-medium">
+<div class="flex gap-4">
+<span class="flex items-center gap-1">
+<span class="size-2 rounded-full bg-green-500"></span>
+                    Analyzer Ready
+                </span>
+<span>Chrome Engine v114</span>
+</div>
+<div class="flex gap-4 items-center">
+<span>View: Split Screen</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">history</span>
+                    Last Scan: 2m ago
+                </span>
+</div>
+</footer>
+</div>
+</body></html>

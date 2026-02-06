@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Before vs After Comparison | AccessiScan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#0d121b] dark:text-white">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- TopNavBar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[#e7ebf3] dark:border-gray-800 bg-white dark:bg-[#101622] px-10 py-3">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-6">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-[#0d121b] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">AccessiScan</h2>
+</div>
+<nav class="flex items-center gap-9">
+<a class="text-[#0d121b] dark:text-gray-300 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-primary text-sm font-bold leading-normal border-b-2 border-primary py-1" href="#">Scans</a>
+<a class="text-[#0d121b] dark:text-gray-300 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">History</a>
+<a class="text-[#0d121b] dark:text-gray-300 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Settings</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<label class="flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-[#4c669a] flex border-none bg-[#e7ebf3] dark:bg-gray-800 items-center justify-center pl-4 rounded-l-lg" data-icon="search">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#0d121b] dark:text-white focus:outline-0 focus:ring-0 border-none bg-[#e7ebf3] dark:bg-gray-800 focus:border-none h-full placeholder:text-[#4c669a] px-4 rounded-l-none pl-2 text-base font-normal" placeholder="Search reports..." value=""/>
+</div>
+</label>
+<button class="flex min-w-[120px] cursor-pointer items-center justify-center gap-2 rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal transition-opacity hover:opacity-90">
+<span class="material-symbols-outlined text-sm">download</span>
+<span class="truncate">Export Report</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-gray-200 dark:border-gray-700" data-alt="User profile avatar placeholder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuACzJT5g7xw0OihION9E6DUTQv3grpkNWyOuPm5sxrz0lUrwu1tfT-NRL1eu9rhUb4DEm5Dh6EFFR7f4ctKUY3Rs-bsnlgwV6dWTspe2bmD8nKs57daZ08cSpopcDYEht3pzlE5cuPf6HyQeLLmohcE3pH3wVIIshpX45CLiOdeUbzQUNKzRVaCDH09Vi6v2_ffLOzc8rnDnWp83DVKvgW5tYIzE4BkbNMPIjaHU9CIauCd3jQcZCkOsxQiAV7hQcP1YX4189F165Y");'></div>
+</div>
+</header>
+<main class="flex-1 flex flex-col max-w-[1280px] mx-auto w-full px-10 py-8">
+<!-- Breadcrumbs -->
+<div class="flex flex-wrap gap-2 mb-2">
+<a class="text-[#4c669a] dark:text-gray-400 text-sm font-medium leading-normal hover:underline" href="#">Scan History</a>
+<span class="text-[#4c669a] dark:text-gray-500 text-sm font-medium leading-normal">/</span>
+<span class="text-primary text-sm font-bold leading-normal">Before vs After Comparison</span>
+</div>
+<!-- PageHeading -->
+<div class="flex flex-wrap justify-between items-end gap-3 mb-8">
+<div class="flex min-w-72 flex-col gap-2">
+<h1 class="text-[#0d121b] dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Optimization Audit</h1>
+<p class="text-[#4c669a] dark:text-gray-400 text-lg font-normal leading-normal">Visualizing AI-powered accessibility improvements for <span class="font-bold text-primary">project-dashboard.v2</span></p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg border border-[#cfd7e7] dark:border-gray-700 bg-white dark:bg-gray-800 font-semibold text-sm">
+<span class="material-symbols-outlined">refresh</span> Re-run Scan
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white font-bold text-sm">
+                            Apply Fixes <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Stats Summary -->
+<div class="flex flex-wrap gap-4 mb-10">
+<div class="flex min-w-[200px] flex-1 flex-col gap-2 rounded-xl p-6 border border-[#cfd7e7] dark:border-gray-800 bg-white dark:bg-[#1a212f]">
+<p class="text-[#4c669a] dark:text-gray-400 text-sm font-medium">Original Accessibility Score</p>
+<div class="flex items-baseline gap-2">
+<p class="text-[#0d121b] dark:text-white tracking-light text-4xl font-black">45<span class="text-xl font-normal text-gray-400">/100</span></p>
+</div>
+<div class="flex items-center gap-1 text-[#e73908] bg-[#fdf2f2] dark:bg-red-950/30 px-2 py-0.5 rounded w-fit text-sm font-semibold">
+<span class="material-symbols-outlined text-xs">trending_down</span> Fail
+                        </div>
+</div>
+<div class="flex min-w-[200px] flex-1 flex-col gap-2 rounded-xl p-6 border-2 border-primary bg-primary/5 dark:bg-primary/10">
+<p class="text-[#135bec] dark:text-blue-400 text-sm font-medium">Projected After Score</p>
+<div class="flex items-baseline gap-2">
+<p class="text-[#0d121b] dark:text-white tracking-light text-4xl font-black">95<span class="text-xl font-normal text-gray-400">/100</span></p>
+</div>
+<div class="flex items-center gap-1 text-[#07883b] bg-[#f0fdf4] dark:bg-green-950/30 px-2 py-0.5 rounded w-fit text-sm font-semibold">
+<span class="material-symbols-outlined text-xs">trending_up</span> +50 point improvement
+                        </div>
+</div>
+<div class="flex min-w-[200px] flex-1 flex-col gap-2 rounded-xl p-6 border border-[#cfd7e7] dark:border-gray-800 bg-white dark:bg-[#1a212f]">
+<p class="text-[#4c669a] dark:text-gray-400 text-sm font-medium">Compliance Standard</p>
+<p class="text-[#0d121b] dark:text-white tracking-light text-2xl font-bold">WCAG 2.1 AAA</p>
+<p class="text-[#4c669a] dark:text-gray-400 text-sm font-medium">Highest priority level met</p>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row gap-8">
+<!-- Before Card -->
+<div class="flex-1 flex flex-col gap-4">
+<div class="flex items-center justify-between px-4">
+<h2 class="text-xl font-bold text-[#0d121b] dark:text-white">Original Report</h2>
+<span class="text-sm font-medium text-gray-500 italic">Scanned 12 mins ago</span>
+</div>
+<div class="rounded-xl border border-[#cfd7e7] dark:border-gray-800 bg-white dark:bg-[#1a212f] overflow-hidden flex flex-col">
+<div class="h-32 bg-red-50 dark:bg-red-950/20 flex items-center justify-center border-b border-[#cfd7e7] dark:border-gray-800">
+<div class="flex flex-col items-center">
+<span class="text-red-600 font-black text-3xl">45</span>
+<span class="text-red-600/70 text-xs font-bold uppercase tracking-wider">Critical Warning</span>
+</div>
+</div>
+<div class="p-6 space-y-4">
+<div class="flex items-start gap-3 p-4 bg-red-50/50 dark:bg-red-950/10 rounded-lg border border-red-100 dark:border-red-900/30">
+<span class="material-symbols-outlined text-red-600">error</span>
+<div>
+<p class="font-bold text-sm text-[#0d121b] dark:text-white leading-none mb-1">Missing Alt Text (12)</p>
+<p class="text-xs text-gray-500">Screen readers cannot describe visual content to users.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-4 bg-red-50/50 dark:bg-red-950/10 rounded-lg border border-red-100 dark:border-red-900/30">
+<span class="material-symbols-outlined text-red-600">contrast</span>
+<div>
+<p class="font-bold text-sm text-[#0d121b] dark:text-white leading-none mb-1">Low Contrast Ratio (8)</p>
+<p class="text-xs text-gray-500">Text elements below 4.5:1 ratio threshold.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-4 bg-red-50/50 dark:bg-red-950/10 rounded-lg border border-red-100 dark:border-red-900/30">
+<span class="material-symbols-outlined text-red-600">keyboard_alt</span>
+<div>
+<p class="font-bold text-sm text-[#0d121b] dark:text-white leading-none mb-1">Keyboard Trap (2)</p>
+<p class="text-xs text-gray-500">Focus indicators missing on interactive menus.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-4 bg-gray-50 dark:bg-gray-800/40 rounded-lg border border-gray-100 dark:border-gray-700">
+<span class="material-symbols-outlined text-gray-400">code</span>
+<div>
+<p class="font-bold text-sm text-[#0d121b] dark:text-white leading-none mb-1">Missing ARIA Labels</p>
+<p class="text-xs text-gray-500">Navigational regions not properly defined.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Arrow Separator (Desktop Only) -->
+<div class="hidden lg:flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-4xl font-black">double_arrow</span>
+</div>
+<!-- After Card -->
+<div class="flex-1 flex flex-col gap-4">
+<div class="flex items-center justify-between px-4">
+<h2 class="text-xl font-bold text-[#0d121b] dark:text-white">AI-Optimized Result</h2>
+<span class="px-2 py-0.5 bg-primary/10 text-primary text-xs font-bold rounded">AI ENHANCED</span>
+</div>
+<div class="rounded-xl border-2 border-primary bg-white dark:bg-[#1a212f] overflow-hidden flex flex-col shadow-xl shadow-primary/5">
+<div class="h-32 bg-primary/10 dark:bg-primary/20 flex items-center justify-center border-b border-primary/20">
+<div class="flex flex-col items-center">
+<span class="text-primary font-black text-3xl">95</span>
+<span class="text-primary/70 text-xs font-bold uppercase tracking-wider">High Compliance</span>
+</div>
+</div>
+<div class="p-6 space-y-4">
+<div class="flex items-start gap-3 p-4 bg-green-50/50 dark:bg-green-950/10 rounded-lg border border-green-100 dark:border-green-900/30">
+<span class="material-symbols-outlined text-green-600">check_circle</span>
+<div>
+<p class="font-bold text-sm text-[#0d121b] dark:text-white leading-none mb-1">Contextual Alt Text Generated</p>
+<p class="text-xs text-green-700 dark:text-green-500">All images now have semantic descriptions.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-4 bg-green-50/50 dark:bg-green-950/10 rounded-lg border border-green-100 dark:border-green-900/30">
+<span class="material-symbols-outlined text-green-600">check_circle</span>
+<div>
+<p class="font-bold text-sm text-[#0d121b] dark:text-white leading-none mb-1">Contrast Auto-Adjusted</p>
+<p class="text-xs text-green-700 dark:text-green-500">Color palette shifted to 7.1:1 AAA ratio.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-4 bg-green-50/50 dark:bg-green-950/10 rounded-lg border border-green-100 dark:border-green-900/30">
+<span class="material-symbols-outlined text-green-600">check_circle</span>
+<div>
+<p class="font-bold text-sm text-[#0d121b] dark:text-white leading-none mb-1">Tab Index Logic Applied</p>
+<p class="text-xs text-green-700 dark:text-green-500">Keyboard focus cycle is now linear and logical.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-4 bg-green-50/50 dark:bg-green-950/10 rounded-lg border border-green-100 dark:border-green-900/30">
+<span class="material-symbols-outlined text-green-600">check_circle</span>
+<div>
+<p class="font-bold text-sm text-[#0d121b] dark:text-white leading-none mb-1">ARIA Landmarks Fixed</p>
+<p class="text-xs text-green-700 dark:text-green-500">Header, main, and footer roles correctly assigned.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Detailed Breakdown Header -->
+<div class="mt-16 mb-4">
+<h2 class="text-[#0d121b] dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em]">Detailed Code Breakdown</h2>
+<p class="text-gray-500 text-sm">Review the specific code changes implemented by AccessiScan AI.</p>
+</div>
+<!-- Comparison Table -->
+<div class="rounded-xl border border-[#cfd7e7] dark:border-gray-800 bg-white dark:bg-[#1a212f] overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-gray-50 dark:bg-gray-800/50 border-b border-[#cfd7e7] dark:border-gray-800">
+<th class="p-4 text-xs font-bold uppercase tracking-widest text-gray-500">Feature</th>
+<th class="p-4 text-xs font-bold uppercase tracking-widest text-gray-500">Original (Issue)</th>
+<th class="p-4 text-xs font-bold uppercase tracking-widest text-gray-500">Optimized (Fix)</th>
+<th class="p-4 text-xs font-bold uppercase tracking-widest text-gray-500">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+<tr>
+<td class="p-4 font-semibold text-sm">Main Button</td>
+<td class="p-4">
+<code class="text-xs bg-red-50 text-red-700 px-2 py-1 rounded">&lt;button&gt;Click here&lt;/button&gt;</code>
+</td>
+<td class="p-4">
+<code class="text-xs bg-green-50 text-green-700 px-2 py-1 rounded">&lt;button aria-label="Submit Order"&gt;Submit&lt;/button&gt;</code>
+</td>
+<td class="p-4">
+<span class="text-green-600 font-bold text-xs uppercase">Resolved</span>
+</td>
+</tr>
+<tr>
+<td class="p-4 font-semibold text-sm">Hero Image</td>
+<td class="p-4">
+<code class="text-xs bg-red-50 text-red-700 px-2 py-1 rounded">&lt;img src="banner.png"&gt;</code>
+</td>
+<td class="p-4">
+<code class="text-xs bg-green-50 text-green-700 px-2 py-1 rounded">&lt;img src="banner.png" alt="Happy family outdoors"&gt;</code>
+</td>
+<td class="p-4">
+<span class="text-green-600 font-bold text-xs uppercase">Resolved</span>
+</td>
+</tr>
+<tr>
+<td class="p-4 font-semibold text-sm">Contact Link</td>
+<td class="p-4">
+<code class="text-xs bg-red-50 text-red-700 px-2 py-1 rounded">color: #cccccc (1.2:1)</code>
+</td>
+<td class="p-4">
+<code class="text-xs bg-green-50 text-green-700 px-2 py-1 rounded">color: #717171 (4.5:1)</code>
+</td>
+<td class="p-4">
+<span class="text-green-600 font-bold text-xs uppercase">Resolved</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Sticky Footer Actions -->
+<div class="fixed bottom-8 left-1/2 -translate-x-1/2 w-full max-w-[600px] px-4 z-50">
+<div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-full shadow-2xl p-2 flex items-center justify-between">
+<div class="flex items-center gap-3 pl-4">
+<span class="material-symbols-outlined text-primary">auto_fix_high</span>
+<p class="text-sm font-bold">50 Improvements ready</p>
+</div>
+<div class="flex gap-2">
+<button class="px-6 py-2 rounded-full border border-gray-200 dark:border-gray-700 text-sm font-bold hover:bg-gray-50 transition-colors">Download Patch</button>
+<button class="px-6 py-2 rounded-full bg-primary text-white text-sm font-bold hover:opacity-90 transition-opacity shadow-lg shadow-primary/20">Apply All Fixes</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

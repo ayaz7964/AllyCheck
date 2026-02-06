@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AccessiScan - AI-Powered Web Accessibility</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#0d121b] dark:text-white transition-colors duration-200">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Header Section -->
+<header class="sticky top-0 z-50 w-full border-b border-solid border-[#e7ebf3] dark:border-[#2a3447] bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="mx-auto max-w-[1200px] px-6 lg:px-10 py-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="text-primary size-8 flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">accessibility</span>
+</div>
+<h2 class="text-[#0d121b] dark:text-white text-xl font-bold leading-tight tracking-tight">AccessiScan</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-[#4c669a] dark:text-gray-400 hover:text-primary dark:hover:text-white text-sm font-medium transition-colors" href="#">Features</a>
+<a class="text-[#4c669a] dark:text-gray-400 hover:text-primary dark:hover:text-white text-sm font-medium transition-colors" href="#">Pricing</a>
+<a class="text-[#4c669a] dark:text-gray-400 hover:text-primary dark:hover:text-white text-sm font-medium transition-colors" href="#">Docs</a>
+</nav>
+<div class="flex items-center gap-3">
+<button class="hidden sm:flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-[#e7ebf3] dark:bg-[#1e293b] text-[#0d121b] dark:text-white text-sm font-bold transition-all hover:bg-[#d0d7e5] dark:hover:bg-[#334155]">
+                        Login
+                    </button>
+<button class="flex min-w-[110px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold shadow-sm hover:opacity-90 transition-all">
+                        Get Started
+                    </button>
+</div>
+</div>
+</header>
+<main class="flex-1">
+<!-- Hero Section -->
+<section class="mx-auto max-w-[1200px] px-6 lg:px-10 py-16 md:py-24 @container">
+<div class="flex flex-col gap-10 lg:flex-row lg:items-center">
+<div class="flex flex-col gap-8 flex-1">
+<div class="flex flex-col gap-4 text-left">
+<h1 class="text-[#0d121b] dark:text-white text-4xl font-black leading-tight tracking-[-0.033em] md:text-6xl">
+                                Make Your Website Accessible for Everyone
+                            </h1>
+<p class="text-[#4c669a] dark:text-gray-400 text-lg font-normal leading-relaxed max-w-[600px]">
+                                Automate WCAG compliance with AI-powered audits. Identify barriers, get instant fixes, and improve your accessibility score in minutes.
+                            </p>
+</div>
+<div class="flex flex-col sm:flex-row w-full max-w-[600px] bg-white dark:bg-[#1e293b] rounded-xl border border-[#e7ebf3] dark:border-[#2a3447] p-2 shadow-xl">
+<div class="flex flex-1 items-center px-4 py-2 sm:py-0">
+<span class="material-symbols-outlined text-[#4c669a] mr-2">search</span>
+<input class="w-full border-none bg-transparent focus:ring-0 text-[#0d121b] dark:text-white placeholder:text-[#4c669a] text-base" placeholder="Enter your website URL (e.g. example.com)"/>
+</div>
+<button class="flex items-center justify-center rounded-lg h-12 px-8 bg-primary text-white text-base font-bold shadow-md hover:bg-primary/90 transition-all">
+                                Scan a Website
+                            </button>
+</div>
+<div class="flex items-center gap-6 text-sm text-[#4c669a] font-medium">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-green-500">check_circle</span>
+                                WCAG 2.1 Compliance
+                            </div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-green-500">check_circle</span>
+                                AI-Powered Insights
+                            </div>
+</div>
+</div>
+<div class="flex-1 w-full relative">
+<div class="w-full aspect-video rounded-xl overflow-hidden shadow-2xl border border-[#e7ebf3] dark:border-[#2a3447] bg-white dark:bg-[#1e293b]" data-alt="Screenshot of the accessibility audit dashboard showing scorecards and charts">
+<div class="w-full h-full flex flex-col">
+<div class="h-8 bg-[#e7ebf3] dark:bg-[#2a3447] flex items-center px-4 gap-2">
+<div class="size-2 rounded-full bg-red-400"></div>
+<div class="size-2 rounded-full bg-yellow-400"></div>
+<div class="size-2 rounded-full bg-green-400"></div>
+</div>
+<div class="flex-1 flex flex-col p-6 gap-4">
+<div class="flex justify-between items-center">
+<div class="h-4 w-32 bg-gray-200 dark:bg-gray-700 rounded"></div>
+<div class="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">84</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="h-24 bg-gray-100 dark:bg-gray-800 rounded-lg p-3">
+<div class="h-2 w-16 bg-gray-300 dark:bg-gray-600 rounded mb-2"></div>
+<div class="h-8 w-full bg-gray-200 dark:bg-gray-700 rounded"></div>
+</div>
+<div class="h-24 bg-gray-100 dark:bg-gray-800 rounded-lg p-3">
+<div class="h-2 w-16 bg-gray-300 dark:bg-gray-600 rounded mb-2"></div>
+<div class="h-8 w-full bg-gray-200 dark:bg-gray-700 rounded"></div>
+</div>
+</div>
+<div class="flex-1 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-dashed border-gray-300 dark:border-gray-600 flex items-center justify-center">
+<span class="material-symbols-outlined text-gray-400 text-4xl">analytics</span>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute -bottom-6 -right-6 hidden md:block w-48 h-48 bg-primary/10 rounded-full blur-3xl -z-10"></div>
+</div>
+</div>
+</section>
+<!-- Feature Section -->
+<section class="bg-white dark:bg-background-dark/50 py-20 border-y border-[#e7ebf3] dark:border-[#2a3447]">
+<div class="mx-auto max-w-[1200px] px-6 lg:px-10 @container">
+<div class="flex flex-col gap-12">
+<div class="flex flex-col gap-4 text-center max-w-[800px] mx-auto">
+<h2 class="text-[#0d121b] dark:text-white text-3xl md:text-4xl font-black leading-tight">
+                                Enterprise-Grade Accessibility Tools
+                            </h2>
+<p class="text-[#4c669a] dark:text-gray-400 text-lg font-normal">
+                                Designed for developers and auditors to ensure compliance with the latest global standards and build inclusive experiences.
+                            </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Feature 1 -->
+<div class="flex flex-col gap-6 rounded-2xl border border-[#cfd7e7] dark:border-[#2a3447] bg-[#f8f9fc] dark:bg-[#1e293b] p-8 hover:shadow-lg transition-all group">
+<div class="bg-primary/10 text-primary rounded-xl size-14 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">task_alt</span>
+</div>
+<div class="flex flex-col gap-3">
+<h3 class="text-[#0d121b] dark:text-white text-xl font-bold leading-tight">WCAG-based Analysis</h3>
+<p class="text-[#4c669a] dark:text-gray-400 text-base leading-relaxed">
+                                        Comprehensive audits covering A, AA, and AAA levels to ensure technical precision and legal compliance.
+                                    </p>
+</div>
+</div>
+<!-- Feature 2 -->
+<div class="flex flex-col gap-6 rounded-2xl border border-[#cfd7e7] dark:border-[#2a3447] bg-[#f8f9fc] dark:bg-[#1e293b] p-8 hover:shadow-lg transition-all group">
+<div class="bg-primary/10 text-primary rounded-xl size-14 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">psychology</span>
+</div>
+<div class="flex flex-col gap-3">
+<h3 class="text-[#0d121b] dark:text-white text-xl font-bold leading-tight">AI Explanations</h3>
+<p class="text-[#4c669a] dark:text-gray-400 text-base leading-relaxed">
+                                        Human-readable descriptions of complex accessibility errors with instant, code-level suggestions for fixes.
+                                    </p>
+</div>
+</div>
+<!-- Feature 3 -->
+<div class="flex flex-col gap-6 rounded-2xl border border-[#cfd7e7] dark:border-[#2a3447] bg-[#f8f9fc] dark:bg-[#1e293b] p-8 hover:shadow-lg transition-all group">
+<div class="bg-primary/10 text-primary rounded-xl size-14 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">bar_chart</span>
+</div>
+<div class="flex flex-col gap-3">
+<h3 class="text-[#0d121b] dark:text-white text-xl font-bold leading-tight">Score Dashboard</h3>
+<p class="text-[#4c669a] dark:text-gray-400 text-base leading-relaxed">
+                                        Track your progress over time with visual reporting and shareable scorecards for all your key stakeholders.
+                                    </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-20 md:py-32">
+<div class="mx-auto max-w-[960px] px-6">
+<div class="bg-primary rounded-3xl p-10 md:p-16 text-center text-white relative overflow-hidden shadow-2xl">
+<!-- Decorative circle backgrounds -->
+<div class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full"></div>
+<div class="absolute -bottom-10 -left-10 w-64 h-64 bg-white/5 rounded-full"></div>
+<div class="relative z-10 flex flex-col gap-8 items-center">
+<h2 class="text-3xl md:text-5xl font-black leading-tight max-w-[720px]">
+                                Ready to improve your website's accessibility?
+                            </h2>
+<p class="text-white/80 text-lg md:text-xl font-normal max-w-[600px]">
+                                Join hundreds of companies building a more inclusive web with our AI auditing engine.
+                            </p>
+<div class="flex flex-col sm:flex-row gap-4 w-full justify-center">
+<button class="flex min-w-[200px] cursor-pointer items-center justify-center rounded-lg h-14 px-8 bg-white text-primary text-lg font-bold shadow-lg hover:bg-gray-100 transition-all">
+                                    Get Started Now
+                                </button>
+<button class="flex min-w-[200px] cursor-pointer items-center justify-center rounded-lg h-14 px-8 bg-primary-dark/20 border border-white/30 text-white text-lg font-bold hover:bg-white/10 transition-all">
+                                    View Documentation
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Section -->
+<footer class="bg-white dark:bg-background-dark border-t border-[#e7ebf3] dark:border-[#2a3447]">
+<div class="mx-auto max-w-[1200px] px-6 lg:px-10 py-12 flex flex-col gap-10">
+<div class="flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="text-primary size-6 flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl">accessibility</span>
+</div>
+<h2 class="text-[#0d121b] dark:text-white text-lg font-bold">AccessiScan</h2>
+</div>
+<div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+<a class="text-[#4c669a] dark:text-gray-400 hover:text-primary dark:hover:text-white text-sm font-medium transition-colors" href="#">Privacy Policy</a>
+<a class="text-[#4c669a] dark:text-gray-400 hover:text-primary dark:hover:text-white text-sm font-medium transition-colors" href="#">Terms of Service</a>
+<a class="text-[#4c669a] dark:text-gray-400 hover:text-primary dark:hover:text-white text-sm font-medium transition-colors" href="#">Accessibility Statement</a>
+</div>
+<div class="flex items-center gap-5">
+<a class="text-[#4c669a] dark:text-gray-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">share</span>
+</a>
+<a class="text-[#4c669a] dark:text-gray-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+</a>
+<a class="text-[#4c669a] dark:text-gray-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">terminal</span>
+</a>
+</div>
+</div>
+<div class="border-t border-[#e7ebf3] dark:border-[#2a3447] pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-[#4c669a] dark:text-gray-500 text-sm font-normal">
+                        © 2024 AccessiScan AI. Powered by Inclusive Intelligence.
+                    </p>
+<div class="flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-bold uppercase tracking-wider">
+<span class="size-2 rounded-full bg-green-500 animate-pulse"></span>
+                        System Status: Optimal
+                    </div>
+</div>
+</div>
+</footer>
+</div>
+</body></html>
