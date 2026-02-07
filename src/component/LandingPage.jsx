@@ -77,31 +77,57 @@ const ProgressCircle = ({
 
 
 import { useState } from "react";
-// import ProgressCircle from "./ProgressCircle";
-import puppeteer from "puppeteer";
-import axe from "axe-core";
 
 export default function Page() {
-  const [val, setVal] = useState(10);
+  const [val, setVal] = useState(0);
   const [isOpen, setOpen] = useState(false);
-  const [url , setUrl] = useState()
-  const [vol , setVilation] = useState()
-//  async function scanWebsite(url) {
-//   const browser = await puppeteer.launch({ headless: true });
-//   const page = await browser.newPage();
+  const [url, setUrl] = useState("");
+  const [violations, setViolations] = useState(null);
+  const [isScanning, setIsScanning] = useState(false);
+  const [error, setError] = useState(null);
 
-//   await page.goto(url, { waitUntil: "networkidle2" });
+  const handleStartScan = async () => {
+    if (!url) {
+      setError("Please enter a valid URL");
+      return;
+    }
 
-//   // Inject axe-core into page
-//   await page.addScriptTag({ content: axe.source });
+    setIsScanning(true);
+    setError(null);
+    setVal(0);
+    setOpen(true);
+    setViolations(null);
 
-//   const results = await page.evaluate(async () => {
-//     return await window.axe.run();
-//   });
+    try {
+      // Simulate progress
+      const progressInterval = setInterval(() => {
+        setVal((prev) => Math.min(prev + Math.random() * 25, 90));
+      }, 600);
 
-//   await browser.close();
-//   return results.violations;
-// }
+      const response = await fetch("/api/scan", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url })
+      });
+
+      clearInterval(progressInterval);
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Scan failed");
+      }
+
+      const results = await response.json();
+      setVal(100);
+      setViolations(results);
+    } catch (err) {
+      console.error("Scan error:", err);
+      setError(err.message);
+      setVal(0);
+    } finally {
+      setIsScanning(false);
+    }
+  };
 
   // 520380 , 3A025B bg-[#220135] 
   return (
@@ -128,36 +154,81 @@ export default function Page() {
 
         <div className="w-[90%] bg-white h-40 m-10 rounded-[10px] flex   ">
 
-          <input type="text" className="w-[70%] border-2  m-10 rounded-[20px] h-10 p-5 "
-           value = {url} placeholder="Enter your URL https//www.example.com" onChange={(e)=>setUrl(e.target.value)} />
-          <button className=" h-10 mt-10 mr-10  w-32  hover:bg-blue-900  rounded-[10px] text-white bg-blue-600 text-center "
-           onClick={() => { setOpen(true)  }}>Start Test </button>
+          <input
+            type="text"
+            className="w-[70%] border-2 m-10 rounded-[20px] h-10 p-5"
+            value={url}
+            placeholder="Enter your URL https://www.example.com"
+            onChange={(e) => setUrl(e.target.value)}
+            disabled={isScanning}
+          />
+          <button
+            className="h-10 mt-10 mr-10 w-32 hover:bg-blue-900 rounded-[10px] text-white bg-blue-600 text-center disabled:bg-gray-400"
+            onClick={handleStartScan}
+            disabled={isScanning}
+          >
+            {isScanning ? "Scanning..." : "Start Test"}
+          </button>
         </div>
-        {
-          isOpen && (
-            <div className="fixed inset-0 bg-black/50 flex items-center justify-center ">
-              <div className="bg-white p-6 rounded-lg w-150">
-                <div className="flex justify-center mb-4 items-center">
-                  <ProgressCircle percentage={val} color="#10b981" /></div>
-                <p className="text-xl font-bold text-gray-600 mb-4">
-                  Scanning accessbility issues...
-                </p>
-                <p className="w-[100%] p-10 text-center">Evaluting page structure, interactive elements, and color paletters against WCAG 2.1 AA guidelines.</p>
-
-                <div className="flex justify-center ">
-                  <button
-                    onClick={() => setOpen(false)}
-                    className="px-4 py-2 border rounded"
-                  >
-                   X Cancel scan
-                  </button>
-                  
-                </div>
+        {isOpen && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded-lg w-150 max-w-md">
+              <div className="flex justify-center mb-4 items-center">
+                <ProgressCircle percentage={val} color="#10b981" />
               </div>
-              
+
+              {error ? (
+                <>
+                  <p className="text-xl font-bold text-red-600 mb-4 text-center">Scan Failed</p>
+                  <p className="text-center text-red-500 mb-6 text-sm">{error}</p>
+                </>
+              ) : violations ? (
+                <>
+                  <p className="text-xl font-bold text-green-600 mb-2 text-center">Scan Complete</p>
+                  <p className="text-center text-gray-600 mb-4">
+                    Found {violations.violations?.length || 0} violations
+                  </p>
+                  {violations.violations?.length > 0 && (
+                    <div className="text-sm text-gray-700 max-h-48 overflow-y-auto">
+                      {violations.violations.slice(0, 3).map((v, i) => (
+                        <div key={i} className="mb-2 pb-2 border-b">
+                          <strong>{v.id}</strong>
+                          <p className="text-xs text-gray-500">{v.impact}</p>
+                        </div>
+                      ))}
+                      {violations.violations.length > 3 && (
+                        <p className="text-xs text-gray-500 mt-2">...and {violations.violations.length - 3} more</p>
+                      )}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <>
+                  <p className="text-xl font-bold text-gray-600 mb-4 text-center">Scanning accessibility issues...</p>
+                  <p className="w-[100%] p-10 text-center text-sm">
+                    Evaluating page structure, interactive elements, and color palettes against WCAG 2.1 AA guidelines.
+                  </p>
+                </>
+              )}
+
+              <div className="flex justify-center gap-2 mt-4">
+                <button
+                  onClick={() => {
+                    setOpen(false);
+                    if (violations || error) {
+                      setVal(0);
+                      setViolations(null);
+                      setError(null);
+                    }
+                  }}
+                  className="px-4 py-2 border rounded hover:bg-gray-100"
+                >
+                  {violations || error ? "Close" : "Cancel"}
+                </button>
+              </div>
             </div>
-          )
-        }
+          </div>
+        )}
 
         {/* <div class="relative flex items-center">
    
