@@ -2,13 +2,10 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 /**
  * Professional Progress Circle Component
- * @param {number} percentage - The progress value (0 to 100)
- * @param {number} size - Total width/height of the SVG in pixels
- * @param {number} strokeWidth - Thickness of the progress line
- * @param {string} color - Hex or Tailwind color for the progress bar
  */
 const ProgressCircle = ({
   percentage = 0,
@@ -16,12 +13,8 @@ const ProgressCircle = ({
   strokeWidth = 16,
   color = "#3b82f6"
 }) => {
-  // Calculate SVG math
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
-
-  // Calculate how much of the circle to "hide"
-  // If percentage is 90, we show 90% of the circumference
   const offset = circumference - (percentage / 100) * circumference;
 
   return (
@@ -32,7 +25,6 @@ const ProgressCircle = ({
         className="transform -rotate-90"
         viewBox={`0 0 ${size} ${size}`}
       >
-        {/* Background Track Circle */}
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -43,7 +35,6 @@ const ProgressCircle = ({
           className="text-gray-200 dark:text-gray-800"
         />
 
-        {/* Animated Progress Circle */}
         <motion.circle
           cx={size / 2}
           cy={size / 2}
@@ -59,7 +50,6 @@ const ProgressCircle = ({
         />
       </svg>
 
-      {/* Center Content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <motion.span
           initial={{ opacity: 0, scale: 0.5 }}
@@ -73,18 +63,17 @@ const ProgressCircle = ({
   );
 };
 
-// export default ProgressCircle;
-
-
 import { useState } from "react";
 
-export default function Page() {
+export default function LandingPage() {
+  const router = useRouter();
   const [val, setVal] = useState(0);
   const [isOpen, setOpen] = useState(false);
   const [url, setUrl] = useState("");
-  const [violations, setViolations] = useState(null);
+  const [results, setResults] = useState(null);
   const [isScanning, setIsScanning] = useState(false);
   const [error, setError] = useState(null);
+  const [scanStatus, setScanStatus] = useState("");
 
   const handleStartScan = async () => {
     if (!url) {
@@ -96,7 +85,8 @@ export default function Page() {
     setError(null);
     setVal(0);
     setOpen(true);
-    setViolations(null);
+    setResults(null);
+    setScanStatus("Initializing scan...");
 
     try {
       // Simulate progress
@@ -117,9 +107,17 @@ export default function Page() {
         throw new Error(data.error || "Scan failed");
       }
 
-      const results = await response.json();
+      const resultsData = await response.json();
       setVal(100);
-      setViolations(results);
+      setScanStatus("Processing results...");
+      
+      // Store results in localStorage
+      localStorage.setItem("scanResults", JSON.stringify(resultsData));
+      
+      // Redirect to results page
+      setTimeout(() => {
+        router.push("/results");
+      }, 1000);
     } catch (err) {
       console.error("Scan error:", err);
       setError(err.message);
@@ -129,139 +127,172 @@ export default function Page() {
     }
   };
 
-  // 520380 , 3A025B bg-[#220135] 
   return (
+    <div className="min-h-screen w-full bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 flex items-center justify-center p-4">
+      {/* Background Elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-300 dark:bg-blue-900 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-300 dark:bg-purple-900 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+      </div>
 
+      <div className="relative z-10 w-full max-w-2xl">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <div className="w-10 h-10 text-blue-600 dark:text-blue-400">
+              <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
+              </svg>
+            </div>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">AllyCheck</h1>
+          </div>
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+            Website Accessibility Checker
+          </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
+            Empower your development team to build inclusive digital experiences. Enter a URL to run a deep, automated audit against international accessibility standards.
+          </p>
+        </motion.div>
 
-    <div className="p-20 space-y-4 bg-gray-200 w-full min-h-screen  flex justify-center ">
+        {/* Input Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-8 mb-8 border border-gray-200 dark:border-gray-800"
+        >
+          <div className="flex flex-col sm:flex-row gap-4">
+            <input
+              type="text"
+              className="flex-1 px-6 py-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+              value={url}
+              placeholder="https://www.example.com"
+              onChange={(e) => setUrl(e.target.value)}
+              disabled={isScanning}
+              onKeyPress={(e) => e.key === "Enter" && handleStartScan()}
+            />
+            <button
+              onClick={handleStartScan}
+              disabled={isScanning}
+              className="px-8 py-4 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-blue-200 dark:hover:shadow-blue-900 disabled:shadow-none flex items-center justify-center gap-2 whitespace-nowrap"
+            >
+              <span>🔍</span>
+              {isScanning ? "Scanning..." : "Start Test"}
+            </button>
+          </div>
 
-      {/* <input 
-        type="range" 
-        onChange={(e) => setVal(e.target.value)} 
-        className="w-full" 
-      /> */}
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
+            >
+              <p className="text-red-700 dark:text-red-400 text-sm font-medium">
+                ⚠️ {error}
+              </p>
+            </motion.div>
+          )}
 
-      {/* <div className="w-[70%] bg-[#3A025B]   rounded-[30px] shadow-lg p-10"> */}
-      {/* <input type="text" className="w-20 "/> */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-8 border-t border-gray-200 dark:border-gray-800">
+            <div className="text-center">
+              <div className="text-2xl mb-2">📋</div>
+              <p className="text-sm text-gray-600 dark:text-gray-300 font-medium">WCAG 2.1 Compliance</p>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl mb-2">🎨</div>
+              <p className="text-sm text-gray-600 dark:text-gray-300 font-medium">Color Contrast</p>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl mb-2">⌨️</div>
+              <p className="text-sm text-gray-600 dark:text-gray-300 font-medium">Keyboard Navigation</p>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl mb-2">📄</div>
+              <p className="text-sm text-gray-600 dark:text-gray-300 font-medium">PDF Reports</p>
+            </div>
+          </div>
+        </motion.div>
 
-
-      {/* </div> */}
-
-      <div className="w-[70%] text-center flex justify-start items-center   flex-col ">
-        <h1 className="text-5xl font-bold text-center text-black ">Website Accessbility Checker</h1>
-        <p className="w-[55%] ">Empower your development team to build inclusive digital experiences.
-          Enter a URL to run a deep, automated audit against international accessibility standards.</p>
-
-        <div className="w-[90%] bg-white h-40 m-10 rounded-[10px] flex   ">
-
-          <input
-            type="text"
-            className="w-[70%] border-2 m-10 rounded-[20px] h-10 p-5"
-            value={url}
-            placeholder="Enter your URL https://www.example.com"
-            onChange={(e) => setUrl(e.target.value)}
-            disabled={isScanning}
-          />
-          <button
-            className="h-10 mt-10 mr-10 w-32 hover:bg-blue-900 rounded-[10px] text-white bg-blue-600 text-center disabled:bg-gray-400"
-            onClick={handleStartScan}
-            disabled={isScanning}
-          >
-            {isScanning ? "Scanning..." : "Start Test"}
-          </button>
-        </div>
+        {/* Scan Modal */}
         {isOpen && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-            <div className="bg-white p-6 rounded-lg w-150 max-w-md">
-              <div className="flex justify-center mb-4 items-center">
-                <ProgressCircle percentage={val} color="#10b981" />
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl p-8 max-w-md w-full"
+            >
+              <div className="flex justify-center mb-6">
+                <ProgressCircle percentage={val} size={180} color="#3b82f6" />
               </div>
 
               {error ? (
                 <>
-                  <p className="text-xl font-bold text-red-600 mb-4 text-center">Scan Failed</p>
-                  <p className="text-center text-red-500 mb-6 text-sm">{error}</p>
-                </>
-              ) : violations ? (
-                <>
-                  <p className="text-xl font-bold text-green-600 mb-2 text-center">Scan Complete</p>
-                  <p className="text-center text-gray-600 mb-4">
-                    Found {violations.violations?.length || 0} violations
+                  <p className="text-xl font-bold text-red-600 dark:text-red-400 mb-2 text-center">
+                    ❌ Scan Failed
                   </p>
-                  {violations.violations?.length > 0 && (
-                    <div className="text-sm text-gray-700 max-h-48 overflow-y-auto">
-                      {violations.violations.slice(0, 3).map((v, i) => (
-                        <div key={i} className="mb-2 pb-2 border-b">
-                          <strong>{v.id}</strong>
-                          <p className="text-xs text-gray-500">{v.impact}</p>
-                        </div>
-                      ))}
-                      {violations.violations.length > 3 && (
-                        <p className="text-xs text-gray-500 mt-2">...and {violations.violations.length - 3} more</p>
-                      )}
-                    </div>
-                  )}
+                  <p className="text-center text-gray-600 dark:text-gray-300 text-sm mb-6">
+                    {error}
+                  </p>
+                </>
+              ) : val === 100 ? (
+                <>
+                  <p className="text-xl font-bold text-green-600 dark:text-green-400 mb-2 text-center">
+                    ✓ Scan Complete
+                  </p>
+                  <p className="text-center text-gray-600 dark:text-gray-300 text-sm mb-6">
+                    Redirecting to results...
+                  </p>
                 </>
               ) : (
                 <>
-                  <p className="text-xl font-bold text-gray-600 mb-4 text-center">Scanning accessibility issues...</p>
-                  <p className="w-[100%] p-10 text-center text-sm">
+                  <p className="text-lg font-bold text-gray-900 dark:text-white mb-2 text-center">
+                    Analyzing Accessibility
+                  </p>
+                  <p className="text-center text-gray-600 dark:text-gray-400 text-sm mb-4">
+                    {scanStatus}
+                  </p>
+                  <div className="w-full bg-gray-200 dark:bg-gray-800 rounded-full h-1.5">
+                    <motion.div
+                      className="bg-blue-600 h-1.5 rounded-full"
+                      initial={{ width: 0 }}
+                      animate={{ width: `${val}%` }}
+                      transition={{ duration: 0.5 }}
+                    ></motion.div>
+                  </div>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-3 text-center">
                     Evaluating page structure, interactive elements, and color palettes against WCAG 2.1 AA guidelines.
                   </p>
                 </>
               )}
 
-              <div className="flex justify-center gap-2 mt-4">
-                <button
-                  onClick={() => {
-                    setOpen(false);
-                    if (violations || error) {
+              {!isScanning && (
+                <div className="flex justify-center gap-3 mt-6">
+                  <button
+                    onClick={() => {
+                      setOpen(false);
                       setVal(0);
-                      setViolations(null);
                       setError(null);
-                    }
-                  }}
-                  className="px-4 py-2 border rounded hover:bg-gray-100"
-                >
-                  {violations || error ? "Close" : "Cancel"}
-                </button>
-              </div>
-            </div>
-          </div>
+                      setScanStatus("");
+                    }}
+                    className="px-6 py-2 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
+                  >
+                    Close
+                  </button>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
         )}
-
-        {/* <div class="relative flex items-center">
-   
-    <svg class="absolute left-3 h-5 w-5 text-gray-400" xmlns="http://www.w3.org" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-    </svg>
-
-    <input type="text" placeholder="Search..." class="w-full rounded-lg border border-gray-300 py-2 pl-10 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
-
- 
-    <svg class="absolute right-3 h-5 w-5 text-gray-400" xmlns="http://www.w3.org" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
-    </svg> */}
-        {/* </div> */}
-
-
       </div>
-
-
-
-      {/* <div className="flex  items-center justify-center min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-4">
-      <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="text-4xl font-bold text-white mb-6"
-      >
-        
-      </motion.div> */}
-      {/* </div> */}
-         {/* {vol} */}
     </div>
-
- 
   );
 }
