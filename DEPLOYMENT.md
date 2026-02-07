@@ -37,24 +37,48 @@ LOG_LEVEL=info
 
 ## Deployment to Vercel
 
-### 1. Connect Repository
+### 1. Install Dependencies
+```bash
+npm install
+```
+This includes `puppeteer`, `puppeteer-extra`, and `puppeteer-extra-plugin-stealth` for Vercel compatibility.
+
+### 2. Connect Repository
 ```bash
 npm install -g vercel
 vercel
 ```
 
-### 2. Add Environment Variables
+### 3. Add Environment Variables
 In Vercel Dashboard → Settings → Environment Variables:
-- Add `NEXT_PUBLIC_GEMINI_API_KEY`
+- Add `NEXT_PUBLIC_GEMINI_API_KEY` with your actual API key
 
-### 3. Configure Build Settings
-No special configuration needed. Vercel auto-detects Next.js.
+### 4. Configure Build Settings
+Vercel auto-detects Next.js. The `vercel.json` file includes:
+- Build command: `npm run build`
+- API function memory: 1024 MB (for Puppeteer)
+- API function timeout: 60 seconds (for scanning)
 
-### 4. Deploy
+### 5. Deploy
 ```bash
 npm run build
 vercel deploy --prod
 ```
+
+### 6. First Deployment Tips
+
+**Browser Installation**: 
+- Puppeteer automatically downloads Chromium on first deployment
+- First deployment installs Puppeteer (~200MB)
+- Subsequent deployments use cached version
+- Build takes ~2-3 min on first deployment
+- Subsequent builds take ~30-45 seconds
+
+**Stealth Plugin**:
+- App uses `puppeteer-extra-plugin-stealth` for bot detection evasion
+- Improves compatibility with websites that detect automation
+- Fallback to standard Puppeteer if stealth plugin fails to load
+- Logs indicate which browser mode is being used
 
 ## Deployment to Other Platforms
 
@@ -117,23 +141,76 @@ RATE_LIMIT_REQUESTS_PER_MINUTE=10
 ### Issue: Build fails with Suspense error
 **Solution**: ✅ Already fixed! The results page uses Suspense wrapper.
 
+### Issue: "Could not find Chrome" on Vercel
+**Solution**: ✅ Automatic! 
+- `@vercel/browser` is now a dependency
+- App auto-detects Vercel environment
+- Chrome path is set automatically
+- If still failing:
+  1. Delete `.vercel` cache
+  2. Redeploy: `vercel deploy --prod --force`
+  3. Check logs for "Using Vercel Chrome" message
+
 ### Issue: Timeout on slow websites
-**Configure in `.env.local`**:
+**Configure in Vercel Dashboard** → Environment Variables:
 ```env
 NEXT_PUBLIC_SCAN_TIMEOUT=90000
 NEXT_PUBLIC_PAGE_LOAD_TIMEOUT=60000
 ```
 
 ### Issue: Gemini API errors
-- Verify API key is correct
+- Verify API key is correct in Vercel dashboard
 - Check API is enabled in Google Cloud
 - Ensure sufficient quota
+- Check request logs for specific errors
 
-### Issue: High memory usage
-Puppeteer can use significant memory. For production:
-- Run on instance with 2GB+ RAM
-- Consider scanning queue system for high traffic
-- Implement caching for frequently scanned sites
+### Issue: Function timeout (production)
+**Default**: 60 seconds (configured in `vercel.json`)
+- If scanning large pages, increase in `vercel.json`:
+```json
+{
+  "functions": {
+    "src/app/api/scan/route.js": {
+      "maxDuration": 120
+    }
+  }
+}
+```
+- Max allowed: 300 seconds (Pro plan)
+
+### Issue: Build fails during first deployment
+Usually due to `@vercel/browser` installation (~150MB)
+- **Solution**: Increase memory in `vercel.json`:
+```json
+{
+  "functions": {
+    "src/app/api/scan/route.js": {
+      "memory": 2048
+    }
+  }
+}
+```
+
+### Issue: High memory usage on scans
+Puppeteer + Chrome can use 200-500MB per scan
+- **Solution**: Redeploy with higher memory:
+```json
+{
+  "functions": {
+    "src/app/api/scan/route.js": {
+      "memory": 3008
+    }
+  }
+}
+```
+- Check available memory in Vercel dashboard
+
+### Issue: Previous Chrome not found error (Vercel)
+**This is now fixed!** With `puppeteer-extra` and stealth plugin:
+- Puppeteer Chromium auto-downloads on first deployment
+- Stealth plugin improves compatibility
+- Graceful fallback if stealth plugin fails
+- Check logs for "Using puppeteer" or stealth plugin messages
 
 ## Maintenance
 

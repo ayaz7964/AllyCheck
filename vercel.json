@@ -1,0 +1,12 @@
+{
+  "buildCommand": "npm run build",
+  "env": {
+    "NEXT_PUBLIC_GEMINI_API_KEY": "@gemini_api_key"
+  },
+  "functions": {
+    "src/app/api/scan/route.js": {
+      "memory": 1024,
+      "maxDuration": 60
+    }
+  }
+}

@@ -5,6 +5,25 @@ const SCAN_TIMEOUT = parseInt(process.env.NEXT_PUBLIC_SCAN_TIMEOUT || "60000");
 const PAGE_LOAD_TIMEOUT = parseInt(process.env.NEXT_PUBLIC_PAGE_LOAD_TIMEOUT || "45000");
 
 /**
+ * Get Puppeteer instance with stealth plugin for Vercel compatibility
+ * @returns {Object} Puppeteer instance with stealth plugin applied
+ */
+async function getPuppeteerWithStealth() {
+  try {
+    const puppeteerExtra = await import("puppeteer-extra").then(m => m.default);
+    const StealthPlugin = await import("puppeteer-extra-plugin-stealth").then(m => m.default);
+    
+    puppeteerExtra.use(StealthPlugin());
+    return puppeteerExtra;
+  } catch (error) {
+    logger.warn("[Scanner]", "Failed to load puppeteer-extra, using standard puppeteer", {
+      error: error.message
+    });
+    return puppeteer;
+  }
+}
+
+/**
  * Scans a website for accessibility violations using Puppeteer and axe-core
  * @param {string} url - The website URL to scan
  * @returns {Promise<Object>} Results from axe-core
@@ -22,17 +41,22 @@ export async function scanWebsite(url) {
 
     logger.info("[Scanner]", `Starting scan for: ${finalUrl}`);
 
-    browser = await puppeteer.launch({
+    // Get Puppeteer instance with stealth plugin
+    const puppeteerClient = await getPuppeteerWithStealth();
+    
+    const launchOptions = {
       headless: true,
       args: [
         "--no-sandbox",
         "--disable-setuid-sandbox",
-        "--disable-dev-shm-usage", // Important for production
+        "--disable-dev-shm-usage",
         "--disable-gpu",
         "--single-process=false"
       ],
       timeout: SCAN_TIMEOUT
-    });
+    };
+
+    browser = await puppeteerClient.launch(launchOptions);
 
     const page = await browser.newPage();
     
