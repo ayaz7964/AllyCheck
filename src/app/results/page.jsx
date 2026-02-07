@@ -119,13 +119,15 @@ export default function ResultsPage() {
         <div className="flex items-center gap-3">
           <button
             onClick={handleExportJSON}
-            className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all"
+            aria-label="Export scan results as JSON file"
+            className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             📥 Export JSON
           </button>
           <button
             onClick={handleReScan}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-bold hover:bg-blue-700 transition-all"
+            aria-label="Start a new scan"
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-bold hover:bg-blue-700 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             🔄 Re-scan
           </button>
@@ -178,7 +180,9 @@ export default function ResultsPage() {
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
-                className={`pb-3 text-sm font-medium whitespace-nowrap border-b-2 transition-all flex items-center gap-2 ${
+                aria-selected={activeTab === tab.key}
+                role="tab"
+                className={`pb-3 text-sm font-medium whitespace-nowrap border-b-2 transition-all flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-950 ${
                   activeTab === tab.key
                     ? "border-blue-600 text-blue-600 dark:text-blue-400"
                     : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
@@ -204,7 +208,9 @@ export default function ResultsPage() {
                   <button
                     key={filter.key}
                     onClick={() => setSelectedSeverity(filter.key)}
-                    className={`px-4 py-2 rounded-lg font-medium text-sm whitespace-nowrap transition-all ${
+                    aria-label={`Filter by ${filter.label}`}
+                    aria-pressed={selectedSeverity === filter.key}
+                    className={`px-4 py-2 rounded-lg font-medium text-sm whitespace-nowrap transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                       selectedSeverity === filter.key
                         ? "bg-blue-600 text-white shadow-lg"
                         : "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-blue-600"
@@ -227,9 +233,11 @@ export default function ResultsPage() {
                         key={idx}
                         className="rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md transition-all overflow-hidden"
                       >
-                        <div
-                          className="p-6 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                        <button
                           onClick={() => setExpandedIssue(isExpanded ? null : idx)}
+                          aria-expanded={isExpanded}
+                          aria-label={`${issue.id}: ${issue.description}. ${isExpanded ? "Collapse" : "Expand"} details`}
+                          className="w-full p-6 text-left hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset"
                         >
                           <div className="flex items-start justify-between gap-4">
                             <div className="flex-1">
@@ -242,13 +250,14 @@ export default function ResultsPage() {
                               <h3 className="text-xl font-bold text-gray-900 dark:text-white">{issue.description}</h3>
                               <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">{issue.help}</p>
                             </div>
-                            <button className="text-gray-400 hover:text-blue-600 transition-colors text-xl flex-shrink-0">
+                            <div className="text-gray-400 hover:text-blue-600 transition-colors text-xl flex-shrink-0" aria-hidden="true">
                               {isExpanded ? "▼" : "▶"}
-                            </button>
+                            </div>
                           </div>
+                        </button>
 
-                          {/* Expanded */}
-                          {isExpanded && (
+                        {/* Expanded */}
+                        {isExpanded && (
                             <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-800 space-y-4">
                               {/* AI Explanation */}
                               <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-5">
@@ -282,7 +291,7 @@ export default function ResultsPage() {
                               )}
                             </div>
                           )}
-                        </div>
+                        
                       </div>
                     );
                   })}

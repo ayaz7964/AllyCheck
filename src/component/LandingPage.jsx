@@ -191,7 +191,8 @@ export default function LandingPage() {
             <button
               onClick={handleStartScan}
               disabled={isScanning}
-              className="px-8 py-4 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-blue-200 dark:hover:shadow-blue-900 disabled:shadow-none flex items-center justify-center gap-2 whitespace-nowrap"
+              aria-label={isScanning ? "Scanning website..." : "Start accessibility scan"}
+              className="px-8 py-4 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-blue-200 dark:hover:shadow-blue-900 disabled:shadow-none flex items-center justify-center gap-2 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-950"
             >
               <span>🔍</span>
               {isScanning ? "Scanning..." : "Start Test"}
@@ -236,6 +237,9 @@ export default function LandingPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="scan-dialog-title"
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
@@ -248,7 +252,7 @@ export default function LandingPage() {
 
               {error ? (
                 <>
-                  <p className="text-xl font-bold text-red-600 dark:text-red-400 mb-2 text-center">
+                  <p id="scan-dialog-title" className="text-xl font-bold text-red-600 dark:text-red-400 mb-2 text-center">
                     ❌ Scan Failed
                   </p>
                   <p className="text-center text-gray-600 dark:text-gray-300 text-sm mb-6">
@@ -257,7 +261,7 @@ export default function LandingPage() {
                 </>
               ) : val === 100 ? (
                 <>
-                  <p className="text-xl font-bold text-green-600 dark:text-green-400 mb-2 text-center">
+                  <p id="scan-dialog-title" className="text-xl font-bold text-green-600 dark:text-green-400 mb-2 text-center">
                     ✓ Scan Complete
                   </p>
                   <p className="text-center text-gray-600 dark:text-gray-300 text-sm mb-6">
@@ -266,7 +270,7 @@ export default function LandingPage() {
                 </>
               ) : (
                 <>
-                  <p className="text-lg font-bold text-gray-900 dark:text-white mb-2 text-center">
+                  <p id="scan-dialog-title" className="text-lg font-bold text-gray-900 dark:text-white mb-2 text-center">
                     Analyzing Accessibility
                   </p>
                   <p className="text-center text-gray-600 dark:text-gray-400 text-sm mb-4">
@@ -295,7 +299,8 @@ export default function LandingPage() {
                       setError(null);
                       setScanStatus("");
                     }}
-                    className="px-6 py-2 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
+                    aria-label="Close scan dialog"
+                    className="px-6 py-2 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     Close
                   </button>
