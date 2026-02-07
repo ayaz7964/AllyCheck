@@ -5,22 +5,50 @@ const SCAN_TIMEOUT = parseInt(process.env.NEXT_PUBLIC_SCAN_TIMEOUT || "60000");
 const PAGE_LOAD_TIMEOUT = parseInt(process.env.NEXT_PUBLIC_PAGE_LOAD_TIMEOUT || "45000");
 
 /**
- * Get Puppeteer instance with stealth plugin for Vercel compatibility
- * @returns {Object} Puppeteer instance with stealth plugin applied
+ * Configure Puppeteer for the current environment
+ * Handles browser cache path for Vercel/serverless
  */
-async function getPuppeteerWithStealth() {
-  try {
-    const puppeteerExtra = await import("puppeteer-extra").then(m => m.default);
-    const StealthPlugin = await import("puppeteer-extra-plugin-stealth").then(m => m.default);
-    
-    puppeteerExtra.use(StealthPlugin());
-    return puppeteerExtra;
-  } catch (error) {
-    logger.warn("[Scanner]", "Failed to load puppeteer-extra, using standard puppeteer", {
-      error: error.message
-    });
-    return puppeteer;
+function configurePuppeteerForEnvironment() {
+  // For Vercel, use a writable cache directory
+  if (process.env.VERCEL) {
+    // Vercel provides /tmp as writable directory
+    process.env.PUPPETEER_CACHE_DIR = "/tmp/.cache/puppeteer";
+    logger.debug("[Scanner]", "Using Vercel cache directory: /tmp/.cache/puppeteer");
   }
+}
+
+/**
+ * Get the browser executable path for the current environment
+ * For Vercel, tries to find system Chrome or Chromium
+ * @returns {Promise<string|undefined>} Path to browser executable
+ */
+async function getBrowserExecutablePath() {
+  // If running on Vercel, try to find system Chrome
+  if (process.env.VERCEL) {
+    // Vercel comes with Chromium/Chrome already (as of recent updates)
+    const possiblePaths = [
+      "/usr/bin/chromium-browser",
+      "/usr/bin/chromium",
+      "/snap/chromium/current/usr/bin/chromium",
+    ];
+
+    for (const path of possiblePaths) {
+      try {
+        // Check if file exists
+        const fs = require("fs");
+        if (fs.existsSync(path)) {
+          logger.info("[Scanner]", `Found Chrome at: ${path}`);
+          return path;
+        }
+      } catch (error) {
+        // Continue to next path
+      }
+    }
+    
+    logger.debug("[Scanner]", "No system Chrome found, Puppeteer will download");
+  }
+  
+  return undefined;
 }
 
 /**
@@ -33,6 +61,9 @@ export async function scanWebsite(url) {
   const startTime = Date.now();
   
   try {
+    // Configure Puppeteer for environment early
+    configurePuppeteerForEnvironment();
+    
     // Ensure URL has protocol
     let finalUrl = url;
     if (!url.startsWith("http://") && !url.startsWith("https://")) {
@@ -41,8 +72,8 @@ export async function scanWebsite(url) {
 
     logger.info("[Scanner]", `Starting scan for: ${finalUrl}`);
 
-    // Get Puppeteer instance with stealth plugin
-    const puppeteerClient = await getPuppeteerWithStealth();
+    // Get browser executable path for serverless environments
+    const executablePath = await getBrowserExecutablePath();
     
     const launchOptions = {
       headless: true,
@@ -56,7 +87,15 @@ export async function scanWebsite(url) {
       timeout: SCAN_TIMEOUT
     };
 
-    browser = await puppeteerClient.launch(launchOptions);
+    // Use serverless Chrome path if available (Vercel/Lambda)
+    if (executablePath) {
+      launchOptions.executablePath = executablePath;
+      logger.debug("[Scanner]", "Launching with custom executable path");
+    } else {
+      logger.debug("[Scanner]", "Using default Puppeteer browser");
+    }
+
+    browser = await puppeteer.launch(launchOptions);
 
     const page = await browser.newPage();
     

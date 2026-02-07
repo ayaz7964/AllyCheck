@@ -41,7 +41,7 @@ LOG_LEVEL=info
 ```bash
 npm install
 ```
-This includes `puppeteer`, `puppeteer-extra`, and `puppeteer-extra-plugin-stealth` for Vercel compatibility.
+This includes `puppeteer` which automatically handles browser downloads and caching.
 
 ### 2. Connect Repository
 ```bash
@@ -68,17 +68,16 @@ vercel deploy --prod
 ### 6. First Deployment Tips
 
 **Browser Installation**: 
-- Puppeteer automatically downloads Chromium on first deployment
-- First deployment installs Puppeteer (~200MB)
-- Subsequent deployments use cached version
-- Build takes ~2-3 min on first deployment
-- Subsequent builds take ~30-45 seconds
+- Puppeteer automatically downloads Chromium on first deployment (~200MB)
+- Cache directory configured to Vercel's `/tmp` for write access
+- First deployment: ~3-4 minutes (including browser download)
+- Subsequent deployments use cached Browser (~30-45 seconds)
 
-**Stealth Plugin**:
-- App uses `puppeteer-extra-plugin-stealth` for bot detection evasion
-- Improves compatibility with websites that detect automation
-- Fallback to standard Puppeteer if stealth plugin fails to load
-- Logs indicate which browser mode is being used
+**Vercel Puppeteer Configuration**:
+- App automatically sets `PUPPETEER_CACHE_DIR=/tmp/.cache/puppeteer` on Vercel
+- Enables browser download in write-able directory
+- Falls back to default behavior in local/other environments
+- Logs show browser source (system Chrome or Puppeteer-downloaded)
 
 ## Deployment to Other Platforms
 
@@ -205,12 +204,26 @@ Puppeteer + Chrome can use 200-500MB per scan
 ```
 - Check available memory in Vercel dashboard
 
-### Issue: Previous Chrome not found error (Vercel)
-**This is now fixed!** With `puppeteer-extra` and stealth plugin:
-- Puppeteer Chromium auto-downloads on first deployment
-- Stealth plugin improves compatibility
-- Graceful fallback if stealth plugin fails
-- Check logs for "Using puppeteer" or stealth plugin messages
+### Issue: "Could not find Chrome" error (Vercel)
+**SOLUTION:** Puppeteer cache configured for `/tmp` directory on Vercel
+
+If you encounter this error:
+1. Verify Puppeteer is configured correctly:
+   ```bash
+   npm install puppeteer@24.37.2
+   ```
+2. Redeploy with cache clear:
+   ```bash
+   vercel env pull
+   vercel deploy --prod --force
+   ```
+3. Check Vercel deployment logs for "Using Puppeteer browser" message
+4. Verify function memory is set to at least 1024MB in vercel.json
+
+If issue persists:
+- Check Vercel function logs for exact error
+- Ensure `/tmp` directory is writable (Vercel guarantee)
+- Try increasing API function timeout to 90 seconds in vercel.json
 
 ## Maintenance
 
