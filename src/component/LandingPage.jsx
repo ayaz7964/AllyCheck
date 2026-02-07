@@ -178,8 +178,12 @@ export default function LandingPage() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-8 mb-8 border border-gray-200 dark:border-gray-800"
         >
+          <label htmlFor="url-input" className="sr-only">
+            Website URL to scan for accessibility issues
+          </label>
           <div className="flex flex-col sm:flex-row gap-4">
             <input
+              id="url-input"
               type="text"
               className="flex-1 px-6 py-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
               value={url}
@@ -187,6 +191,9 @@ export default function LandingPage() {
               onChange={(e) => setUrl(e.target.value)}
               disabled={isScanning}
               onKeyPress={(e) => e.key === "Enter" && handleStartScan()}
+              aria-label="Website URL to scan"
+              aria-errormessage={error ? "url-error" : undefined}
+              aria-invalid={!!error}
             />
             <button
               onClick={handleStartScan}
