@@ -10,7 +10,7 @@
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)](DEPLOYMENT.md)
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Available-green)](https://ally-check.vercel.app/)
+
 
 </div>
 
